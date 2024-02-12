@@ -3,8 +3,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: var(--dark-bg);
-  color: var(--light-font);
+  background: var(--primary-gray);
+  color: var(--text-light);
+  margin-bottom: 2rem;
+  h1 {
+    color: var(--text-light);
+  }
   ul {
     display: flex;
     list-style: none;
@@ -17,7 +21,7 @@
         color: var(--orange-300);
 
         &:active {
-          color: var(--orange-500);
+          color: var(--primary-gray);
         }
       }
     }

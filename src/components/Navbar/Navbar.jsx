@@ -1,11 +1,24 @@
 import React from 'react';
 import './Navbar.scss';
-function Navbar() {
+function Navbar({ setTab }) {
   return (
     <nav className="nav-container">
       <h1>My shop</h1>
       <ul>
-        <li>All items</li>
+        <li
+          onClick={() => {
+            setTab('all');
+          }}
+        >
+          All items
+        </li>
+        <li
+          onClick={() => {
+            setTab('card');
+          }}
+        >
+          My Card
+        </li>
         <li>Favorite</li>
       </ul>
     </nav>

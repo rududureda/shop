@@ -1,9 +1,22 @@
 :root {
-  --dark-bg: #06171e;
-  --light-font: #f4f4f4;
-  --orange-100: #ffb337;
-  --orange-300: #fd9e03;
-  --orange-500: #fd7d01;
-  --teal-100: #005352;
-  --teal-300: #113e3c;
+  --primary-blue: #3498db; /* Modern and bold blue */
+  --primary-gray: #95a5a6; /* Neutral gray for a sleek look */
+}
+
+/* Neutrals */
+:root {
+  --background-light: #ecf0f1; /* Light background for a clean and modern feel */
+  --text-dark: #2c3e50; /* Dark text color for good readability */
+  --background-dark: #34495e; /* Dark background for the footer to create contrast */
+  --text-light: #fff; /* Light text color for elements on dark backgrounds */
+}
+
+/* Accent Colors */
+:root {
+  --accent-orange: #e67e22; /* Energetic orange as an accent color */
+}
+
+/* Box Shadows */
+:root {
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft box shadow */
 }
