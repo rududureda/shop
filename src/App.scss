@@ -1,0 +1,8 @@
+.container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  max-width: 930px;
+  margin: 0 auto;
+  background-color: var(--background-light);
+}

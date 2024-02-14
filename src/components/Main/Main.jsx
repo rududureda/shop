@@ -1,69 +1,76 @@
-import React, { useState } from 'react';
-import { mockData } from '../../mockData';
-
+import React from 'react';
 import Card from '../Card/Card';
+
+import { handleSort } from '../../utils/sortUtils';
+import SortButtons from '../SortButtons/SortButtons';
 import './main.scss';
 
-function Main({ setCardData }) {
-  const [data, setData] = useState(mockData);
-  const handleSortData = () => {
-    const sortedData = data.toSorted((a, b) => {
-      let fa = a.title.toLowerCase(),
-        fb = b.title.toLowerCase();
-
-      if (fa < fb) return -1;
-
-      if (fa > fb) return 1;
-
-      return 0;
-    });
-
+function Main({ handleAddToCard, data, setData }) {
+  const handleSortData = (direction) => {
+    const sortedData = handleSort(data, direction);
     setData(sortedData);
   };
+  // const handleSortData = () => {
+  //   const sortedData = data.toSorted((a, b) => {
+  //     let fa = a.title.toLowerCase(),
+  //       fb = b.title.toLowerCase();
 
-  const handleSortDataAZ = () => {
-    const sortedData = data.toSorted((a, b) => {
-      let fa = a.title.toLowerCase(),
-        fb = b.title.toLowerCase();
+  //     if (fa < fb) return -1;
 
-      if (fa < fb) return 1;
+  //     if (fa > fb) return 1;
 
-      if (fa > fb) return -1;
+  //     return 0;
+  //   });
 
-      return 0;
-    });
-    console.log('data', data);
-    setData(sortedData);
-  };
+  //   setData(sortedData);
+  // };
+
+  // const handleSortDataAZ = () => {
+  //   const sortedData = data.toSorted((a, b) => {
+  //     let fa = a.title.toLowerCase(),
+  //       fb = b.title.toLowerCase();
+
+  //     if (fa < fb) return 1;
+
+  //     if (fa > fb) return -1;
+
+  //     return 0;
+  //   });
+  //   console.log('data', data);
+  //   setData(sortedData);
+  // };
+  // return (
+  //   <main className="main-container">
+  //     <div className="main-action-btn">
+  //       <button
+  //         onClick={() => {
+  //           handleSortDataAZ(data, 'az');
+  //         }}
+  //       >
+  //         Sort Z-A
+  //       </button>
+  //       <button
+  //         onClick={() => {
+  //           handleSortData(data, 'za');
+  //         }}
+  //       >
+  //         Sort A-Z
+  //       </button>
+  //     </div>
   return (
-    <main className="main-container">
-      <div className="main-action-btn">
-        <button
-          onClick={() => {
-            handleSortDataAZ('az');
-          }}
-        >
-          Sort Z-A
-        </button>
-        <button
-          onClick={() => {
-            handleSortData('za');
-          }}
-        >
-          Sort A-Z
-        </button>
-      </div>
-      {data.map((item) => {
-        return (
+    <div>
+      <SortButtons className="sort-button" handleSortData={handleSortData} />
+      <main className="container">
+        {data.map((item) => (
           <Card
             key={item.title}
             title={item.title}
             description={item.description}
-            setCardData={setCardData}
+            handleCardButton={handleAddToCard}
           />
-        );
-      })}
-    </main>
+        ))}
+      </main>
+    </div>
   );
 }
 
