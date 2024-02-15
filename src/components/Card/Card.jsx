@@ -12,6 +12,7 @@ function Card({ title, description, handleCardButton, card }) {
       <button onClick={handleAddToCard}>
         {card ? 'Remove from card' : 'Add to card'}
       </button>
+
     </div>
   );
 }

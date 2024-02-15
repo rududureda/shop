@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { mockData } from './mockData';
+
 // components
 import Navbar from './components/Navbar/Navbar';
 import './App.scss';
@@ -9,51 +9,32 @@ import MyCard from './components/MyCard/MyCard';
 import Favorite from './components/Favorite/Favorite';
 
 function App() {
-  const [cardData, setCardData] = useState([]);
-  const [data, setData] = useState(mockData);
+  // const [favoriteData, setFavoriteData] = useState([]);
 
-  const handleAddToCard = (item) => {
-    setCardData([...cardData, item]);
+  // const handleAddToFavorite = (item) => {
+  //   setFavoriteData([...favoriteData, item]);
 
-    const filteredData = data.filter(
-      (dataItem) => dataItem.title !== item.title
-    );
-    setData(filteredData);
-  };
-  const handleRemoveFromCard = (item) => {
-    setData([...data, item]);
-
-    const filterCardData = cardData.filter(
-      (dataItem) => dataItem.title !== item.title
-    );
-    setCardData(filterCardData);
-  };
+  //   const filterFavoriteData = favoriteData.filter(
+  //     (dataItem) => dataItem.title !== item.title
+  //   );
+  //   setCartData(filterFavoriteData);
+  // };
 
   return (
     <div>
       <Navbar />
       <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/my-card" element={<MyCard />} />
         <Route
-          path="/"
+          path="/favorite"
           element={
-            <Main
-              data={data}
-              setData={setData}
-              handleAddToCard={handleAddToCard}
+            <Favorite
+
+            // handleAddToFavorite={handleAddToFavorite}
             />
           }
         />
-        <Route
-          path="/my-card"
-          element={
-            <MyCard
-              cardData={cardData}
-              setCardData={setCardData}
-              handleRemoveFromCard={handleRemoveFromCard}
-            />
-          }
-        />
-        <Route path="/favorite" element={<Favorite />} />
       </Routes>
     </div>
   );
