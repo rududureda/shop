@@ -6,7 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import './App.scss';
 import Main from './components/Main/Main';
 import MyCard from './components/MyCard/MyCard';
-import Favorite from './components/Favorite/Favorite';
+import Favorites from './components/Favorites/Favorites';
 
 function App() {
   // const [favoriteData, setFavoriteData] = useState([]);
@@ -27,9 +27,9 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/my-card" element={<MyCard />} />
         <Route
-          path="/favorite"
+          path="/favorites"
           element={
-            <Favorite
+            <Favorites
 
             // handleAddToFavorite={handleAddToFavorite}
             />

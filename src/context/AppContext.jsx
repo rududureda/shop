@@ -6,6 +6,8 @@ export const AppContext = createContext();
 function AppContextProvider(props) {
   const [data, setData] = useState(mockData);
   const [cartData, setCartData] = useState([]);
+  const [favoritesData, setFavoritesData] = useState([]);
+
   const handleAddToCard = (item) => {
     setCartData([...cartData, item]);
 
@@ -22,7 +24,15 @@ function AppContextProvider(props) {
     );
     setCartData(filterCartData);
   };
-
+  const handleAddToFavorites = (item) => {
+    setFavoritesData([...favoritesData, item]);
+  };
+  const handleRemoveFromFavorite = (item) => {
+    const filterFavoriteData = favoritesData.filter(
+      (dataItem) => dataItem.title !== item.title
+    );
+    setFavoritesData(filterFavoriteData);
+  };
   return (
     <AppContext.Provider
       value={{
@@ -30,8 +40,12 @@ function AppContextProvider(props) {
         setData,
         cartData,
         setCartData,
+        favoritesData,
+        setFavoritesData,
         handleAddToCard,
         handleRemoveFromCard,
+        handleAddToFavorites,
+        handleRemoveFromFavorite,
       }}
     >
       {props.children}

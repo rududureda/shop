@@ -11,10 +11,10 @@ function Navbar() {
           <NavLink to="/">All items</NavLink>
         </li>
         <li>
-          <NavLink to="/my-card">My Card</NavLink>
+          <NavLink to="/my-card">My Cart</NavLink>
         </li>
         <li>
-          <NavLink to="/favorite">Favorite</NavLink>
+          <NavLink to="/favorites">Favorite</NavLink>
         </li>
       </ul>
     </nav>
