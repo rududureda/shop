@@ -1,8 +1,17 @@
-.container {
+@import '~bootstrap/scss/bootstrap';
+
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: var(--background-light) !important;
+}
+#first-container {
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
   max-width: 930px;
   margin: 0 auto;
-  background-color: var(--background-light);
+  background-color: var(--background-light) !important;
 }
+

@@ -14,7 +14,7 @@ function Card({ title, description, handleCardButton, card }) {
     handleCardButton({ title, description });
   };
   return (
-    <div className="card">
+    <div className="item">
       <FontAwesomeIcon
         icon={faHeart}
         className={`favorite-icon ${

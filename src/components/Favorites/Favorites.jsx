@@ -14,7 +14,7 @@ function Favorites() {
   return (
     <div>
       <SortButtons className="sort-button" handleSortData={handleSortData} />
-      <main className="container">
+      <main id="first-container">
         {favoritesData.map((item) => (
           <Card
             key={item.title}

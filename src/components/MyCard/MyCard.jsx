@@ -15,7 +15,7 @@ function MyCard() {
   return (
     <div>
       <SortButtons className="button" handleSortData={handleSortData} />
-      <main className="container">
+      <main id="first-container">
         {cartData.map(({ title, description }) => (
           <Card
             key={title}
