@@ -26,9 +26,26 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth background color transition */
+  transition: background-color 0.3s ease;
   &:hover {
-    background-color: #d35400; /* Darker shade on hover for an interactive effect */
+    background-color: #d35400;
   }
 }
+.input-sort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  width: 100%;
+  box-shadow: var(--box-shadow);
 
+  input {
+    height: 3rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    font-size: 14px;
+    width: 13.5rem;
+    // box-shadow: var(--box-shadow);
+  }
+}
