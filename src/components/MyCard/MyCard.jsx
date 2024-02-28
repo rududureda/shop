@@ -15,19 +15,22 @@ function MyCard() {
 
   return (
     <div>
-      <div className="input-sort">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchValue}
-          onChange={(e) => {
-            setSearchValue(e.target.value);
-          }}
-        />
-
-        <SortButtons className="sort-button" handleSortData={handleSortData} />
-      </div>
       <main id="first-container">
+        <div className="input-sort">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchValue}
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+            }}
+          />
+
+          <SortButtons
+            className="sort-button"
+            handleSortData={handleSortData}
+          />
+        </div>
         {cartData
           .filter(
             (item) =>
