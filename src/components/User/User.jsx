@@ -26,7 +26,7 @@ function User() {
         if (!response.ok) throw new Error('Something went wrong');
         const data = await response.json();
 
-        console.log(data);
+        // console.log(data);
 
         setUser(data);
       } catch (error) {
@@ -39,7 +39,7 @@ function User() {
   }, []);
   const handelClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  console.log(user);
+  // console.log(user);
 
   return (
     <>
