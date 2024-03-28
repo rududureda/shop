@@ -7,34 +7,19 @@ import './App.scss';
 import Main from './components/Main/Main';
 import MyCard from './components/MyCard/MyCard';
 import Favorites from './components/Favorites/Favorites';
+import Admin from './components/Admin/Admin';
+
+
 
 function App() {
-  // const [favoriteData, setFavoriteData] = useState([]);
-
-  // const handleAddToFavorite = (item) => {
-  //   setFavoriteData([...favoriteData, item]);
-
-  //   const filterFavoriteData = favoriteData.filter(
-  //     (dataItem) => dataItem.title !== item.title
-  //   );
-  //   setCartData(filterFavoriteData);
-  // };
-
   return (
     <div>
       <Navbar />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/my-card" element={<MyCard />} />
-        <Route
-          path="/favorites"
-          element={
-            <Favorites
-
-            // handleAddToFavorite={handleAddToFavorite}
-            />
-          }
-        />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </div>
   );
