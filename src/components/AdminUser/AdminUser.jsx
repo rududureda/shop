@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { OffcanvasBody } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Form, Button, Col, Row } from 'react-bootstrap';
-// import Spinner from 'react-bootstrap/Spinner';
+import { Form, Button, Col, Row, Alert } from 'react-bootstrap';
+import { cfg } from '../../cfg/cfg';
 
 function AdminUser() {
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [validated, setValidated] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +19,30 @@ function AdminUser() {
 
     if (!form.checkValidity()) return;
     console.log(userName, password);
+
+    try {
+      setLoading(true);
+      if (error) setError(false);
+
+      const response = await fetch(`${cfg.API.HOST}/user/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': 'Bearer token',
+        },
+        body: JSON.stringify({ username: userName, password }),
+      });
+
+      if (!response.ok) throw new Error('Username or password is incorrect');
+
+      const user = await response.json();
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClose = () => {
@@ -41,6 +67,9 @@ function AdminUser() {
           <Offcanvas.Title>Log in</Offcanvas.Title>
         </Offcanvas.Header>
         <OffcanvasBody>
+          {error && (
+            <Alert variant="danger">Username or password is incorrect</Alert>
+          )}
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Row>
               <Form.Group as={Col} controlId="validationCustom01">
@@ -72,7 +101,10 @@ function AdminUser() {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-            <Button type="submit">Log in</Button>
+            <Button disable={loading} type="submit">
+              Log in
+            </Button>
+            {loading && <p>...</p>}
           </Form>
         </OffcanvasBody>
       </Offcanvas>
