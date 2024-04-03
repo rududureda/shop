@@ -3,6 +3,7 @@ import { OffcanvasBody } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Form, Button, Col, Row, Alert } from 'react-bootstrap';
 import { cfg } from '../../cfg/cfg';
+import useAuth from '../../hooks/useAuth';
 
 function AdminUser() {
   const [show, setShow] = useState(false);
@@ -11,6 +12,7 @@ function AdminUser() {
   const [validated, setValidated] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const { token, setToken } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +30,6 @@ function AdminUser() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': 'Bearer token',
         },
         body: JSON.stringify({ username: userName, password }),
       });
@@ -37,6 +38,8 @@ function AdminUser() {
 
       const user = await response.json();
       console.log(user);
+
+      if (user?.token) setToken(user.token);
     } catch (error) {
       console.log(error.message);
       setError(true);
@@ -63,50 +66,63 @@ function AdminUser() {
         onHide={handleClose}
         placement="end"
       >
-        <Offcanvas.Header closeButton closeVariant="white">
-          <Offcanvas.Title>Log in</Offcanvas.Title>
-        </Offcanvas.Header>
-        <OffcanvasBody>
-          {error && (
-            <Alert variant="danger">Username or password is incorrect</Alert>
-          )}
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Row>
-              <Form.Group as={Col} controlId="validationCustom01">
-                <Form.Label>User name</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="name"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-                <Form.Control.Feedback type="invalid">
-                  User name is required
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Row>
-            <Row>
-              <Form.Group as={Col} controlId="validationCustom02">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  required
-                  type="password"
-                  placeholder="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Password is required
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Row>
-            <Button disable={loading} type="submit">
-              Log in
-            </Button>
-            {loading && <p>...</p>}
-          </Form>
-        </OffcanvasBody>
+        {token ? (
+          <Offcanvas.Header closeButton closeVariant="white">
+            <Offcanvas.Title>Welcome Admin</Offcanvas.Title>
+          </Offcanvas.Header>
+        ) : (
+          <>
+            {' '}
+            <Offcanvas.Header closeButton closeVariant="white">
+              <Offcanvas.Title>
+                {token ? 'You are logged in' : 'Login'}
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <OffcanvasBody>
+              {error && (
+                <Alert variant="danger">
+                  Username or password is incorrect
+                </Alert>
+              )}
+              <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Row>
+                  <Form.Group as={Col} controlId="validationCustom04">
+                    <Form.Label>User name</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="name"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      User name is required
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Row>
+                <Row>
+                  <Form.Group as={Col} controlId="validationCustom05">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      required
+                      type="password"
+                      placeholder="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Password is required
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Row>
+                <Button disabled={loading} type="submit">
+                  Log in
+                </Button>
+                {loading && <p>...</p>}
+              </Form>
+            </OffcanvasBody>
+          </>
+        )}
       </Offcanvas>
     </>
   );

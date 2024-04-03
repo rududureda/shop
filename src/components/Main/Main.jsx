@@ -7,7 +7,6 @@ import './main.scss';
 import { AppContext } from '../../context/AppContext';
 
 function Main() {
-
   const [searchValue, setSearchValue] = useState('');
   const { data, setData, handleAddToCard } = useContext(AppContext);
   const handleSortData = (direction) => {
@@ -17,22 +16,23 @@ function Main() {
 
   return (
     <div>
-      
       <main id="first-container">
+        <div className="input-sort">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchValue}
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+            }}
+          />
 
-      <div className="input-sort">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchValue}
-          onChange={(e) => {
-            setSearchValue(e.target.value);
-          }}
-        />
-
-        <SortButtons className="sort-button" handleSortData={handleSortData} />
-      </div>
-      
+          <SortButtons
+            className="sort-button"
+            handleSortData={handleSortData}
+          />
+        </div>
+        {!data.length && <h1>There is no product in the shop</h1>}
         {data
           .filter(
             (item) =>
@@ -44,7 +44,6 @@ function Main() {
               key={item.title}
               // handleFavoriteButton={item.handleAddToFavorite}//favorite
               title={item.title}
-              
               description={item.description}
               handleCardButton={handleAddToCard}
             />

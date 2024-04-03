@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState, createContext, useEffect, useCallback } from 'react';
 import { cfg } from '../cfg/cfg';
 
 export const AppContext = createContext();
@@ -12,20 +12,22 @@ function AppContextProvider(props) {
     JSON.parse(localStorage.getItem('favoritesData')) || []
   );
 
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${cfg.API.HOST}/product`);
+
+      const products = await response.json();
+
+      const filteredData = products.filter(
+        (item) => !cartData.some((cartItem) => cartItem.title === item.title)
+      );
+
+      setData(filteredData);
+    } catch (error) {}
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${cfg.API.HOST}/product`);
-
-        const products = await response.json();
-
-        const filteredData = products.filter(
-          (item) => !cartData.some((cartItem) => cartItem.title === item.title)
-        );
-
-        setData(filteredData);
-      } catch (error) {}
-    };
     fetchData();
   }, []);
 
@@ -67,6 +69,7 @@ function AppContextProvider(props) {
       value={{
         data,
         setData,
+        fetchData,
         cartData,
         setCartData,
         favoritesData,
