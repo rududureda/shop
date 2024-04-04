@@ -4,6 +4,8 @@ import { cfg } from '../cfg/cfg';
 export const AppContext = createContext();
 
 function AppContextProvider(props) {
+  const [showLogin, setShowLogin] = useState(false);
+  const [loadingProducts, setLoadingProducts] = useState(true);
   const [data, setData] = useState([]);
   const [cartData, setCartData] = useState(
     JSON.parse(localStorage.getItem('cartData')) || []
@@ -12,9 +14,9 @@ function AppContextProvider(props) {
     JSON.parse(localStorage.getItem('favoritesData')) || []
   );
 
-
   const fetchData = async () => {
     try {
+      setLoadingProducts(true);
       const response = await fetch(`${cfg.API.HOST}/product`);
 
       const products = await response.json();
@@ -24,7 +26,11 @@ function AppContextProvider(props) {
       );
 
       setData(filteredData);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoadingProducts(false);
+    }
   };
 
   useEffect(() => {
@@ -71,9 +77,12 @@ function AppContextProvider(props) {
         setData,
         fetchData,
         cartData,
+        showLogin,
+        setShowLogin,
         setCartData,
         favoritesData,
         setFavoritesData,
+        loadingProducts,
         handleAddToCard,
         handleRemoveFromCard,
         handleAddToFavorites,

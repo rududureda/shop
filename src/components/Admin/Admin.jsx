@@ -23,8 +23,8 @@ function Admin() {
     value: null,
     message: '',
   });
-  const { token } = useAuth();
-  const { fetchData } = useContext(AppContext);
+  const { token, setToken } = useAuth();
+  const { fetchData, setShowLogin } = useContext(AppContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +55,15 @@ function Admin() {
 
       const product = await response.json();
 
-      if (!response.ok) throw new Error(product.error);
+      if (!response.ok) {
+        if (response.status === 401) {
+          setToken(null);
+          setShowLogin(true);
+          alert('Login expired, login again !');
+        }
+
+        throw new Error(product.error);
+      }
 
       setStatus({
         value: 'success',
@@ -63,7 +71,7 @@ function Admin() {
       });
       fetchData();
     } catch (error) {
-      console.log('error', error.message);
+      console.log('Error:', error.message);
       setStatus({
         value: 'danger',
         message: error.message || 'Failed creating product.',

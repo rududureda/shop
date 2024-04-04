@@ -8,12 +8,13 @@ import { AppContext } from '../../context/AppContext';
 
 function Main() {
   const [searchValue, setSearchValue] = useState('');
-  const { data, setData, handleAddToCard } = useContext(AppContext);
+  const { data, setData, handleAddToCard, loadingProducts } =
+    useContext(AppContext);
   const handleSortData = (direction) => {
     const sortedData = handleSort(data, direction);
     setData(sortedData);
   };
-
+  console.log(loadingProducts);
   return (
     <div>
       <main id="first-container">
@@ -32,7 +33,10 @@ function Main() {
             handleSortData={handleSortData}
           />
         </div>
-        {!data.length && <h1>There is no product in the shop</h1>}
+        {loadingProducts && !data.length && <h1>Loading...</h1>}
+        {!data.length && !loadingProducts && (
+          <h1>There is no product in the shop </h1>
+        )}
         {data
           .filter(
             (item) =>

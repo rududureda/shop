@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { OffcanvasBody } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Form, Button, Col, Row, Alert } from 'react-bootstrap';
 import { cfg } from '../../cfg/cfg';
 import useAuth from '../../hooks/useAuth';
+import { AppContext } from '../../context/AppContext';
 
 function AdminUser() {
-  const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [validated, setValidated] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const { token, setToken } = useAuth();
+  const { showLogin, setShowLogin } = useContext(AppContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,6 +41,7 @@ function AdminUser() {
       console.log(user);
 
       if (user?.token) setToken(user.token);
+    handleClose();
     } catch (error) {
       console.log(error.message);
       setError(true);
@@ -49,12 +51,12 @@ function AdminUser() {
   };
 
   const handleClose = () => {
-    setShow(false);
+    setShowLogin(false);
     setValidated(false);
     setUserName('');
     setPassword('');
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => setShowLogin(true);
 
   return (
     <>
@@ -62,7 +64,7 @@ function AdminUser() {
 
       <Offcanvas
         className="offcanvas"
-        show={show}
+        show={showLogin}
         onHide={handleClose}
         placement="end"
       >
